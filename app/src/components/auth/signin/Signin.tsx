@@ -1,7 +1,7 @@
 import { Button, Container, FormControl, FormLabel } from 'react-bootstrap'
 import './Signin.css'
 
-function SignIn() {
+export function SignIn() {
   return (
    <Container>
     <form>
@@ -14,7 +14,7 @@ function SignIn() {
         <FormControl type='password' id='inputPassword' required></FormControl>
       </div>
       <Button type='submit'>Entrar</Button>
-      <p>Não tem uma conta? <a>Registre-se</a></p>
+      <p>Não tem uma conta? <a href='/signup'>Registre-se</a></p>
     </form>
    </Container>
   )
