@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
 import App from "./App";
 import { Home } from './components/public/home/Home'
-import { SignIn } from "./components/auth/signin/Signin";
-import { SignUp } from "./components/auth/signup/Signup";
+import SignIn from "./components/auth/signin/Signin";
+import SignUp from "./components/auth/signup/Signup";
 
 export default function Router() {
   return (
