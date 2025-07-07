@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import App from "./App";
 import { Home } from './components/public/home/Home'
 import SignIn from "./components/auth/signin/Signin";
@@ -6,6 +6,8 @@ import SignUp from "./components/auth/signup/Signup";
 import ProtectedRoute from "./services/auth/ProtectedRoute";
 import { NotFound } from "./components/public/not-found/NotFound";
 import Nav from "./components/admin/nav/Nav";
+import Dashboard from "./components/admin/dashboard/Dashboard";
+import Profile from "./components/admin/user/profile/Profile";
 
 export default function Router() {
   return (
@@ -15,13 +17,14 @@ export default function Router() {
       <Route path="/signup" element={<SignUp />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/app" element={<Nav />}>
-          {/* <Route index element={<Dashboard />} /> 
+          <Route index element={<Dashboard />} /> 
           <Route path="profile" element={<Profile />} />
-          <Route path="certifications" element={<Certifications />} />
+ {/*          <Route path="certifications" element={<Certifications />} />
           <Route path="certifications/create" element={<FormCertification />} />
           <Route path="certifications/create/:id" element={<FormCertification />} />
           <Route path="certifications/:id" element={<CertificationDetails />} />
-          <Route path="portfolio" element={<Portfolio />} /> */}
+          <Route path="portfolio" element={<Portfolio />} />  */}
+          <Route path="*" element={<Navigate to="/app" replace />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
