@@ -62,7 +62,8 @@ const SignUp: React.FC = () => {
         <Form onSubmit={handleSubmit} className='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
           <h3>Cadastro</h3>
           <hr />
-          <Form.Group className='mb-1'>
+          {errorMessage && <Alert className='lh-1' variant="danger">{errorMessage}</Alert>}
+          <Form.Group className='mb-2'>
             <Form.Label htmlFor='inputName'>Nome</Form.Label>
             <Form.Control
               type='text'
@@ -73,7 +74,8 @@ const SignUp: React.FC = () => {
               required
             />
           </Form.Group>
-          <Form.Group className='mb-1'>
+          <br />
+          <Form.Group className='mb-2'>
             <Form.Label htmlFor='inputEmail'>E-mail</Form.Label>
             <Form.Control
               type='email'
@@ -84,6 +86,7 @@ const SignUp: React.FC = () => {
               required
             />
           </Form.Group>
+          <br />
           <Form.Group className="mb-3">
             <Form.Label htmlFor='inputPassword'>Senha</Form.Label>
             <Form.Control
@@ -95,6 +98,7 @@ const SignUp: React.FC = () => {
               required
             />
           </Form.Group>
+          <br />
           <Button type='submit' className='col-12 col-md-3 mb-2'>Cadastrar</Button>
           <p>Já possui uma conta? <a href='/signin'>Login</a></p>
         </Form>

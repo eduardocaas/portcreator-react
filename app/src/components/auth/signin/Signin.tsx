@@ -68,10 +68,10 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Row className='min-vh-100 d-flex justify-content-center align-items-center'>
-        <Form onSubmit={handleSubmit} className='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4 bg-light'>
+        <Form onSubmit={handleSubmit} className='form col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
           <h3>Login</h3>
           <hr />
-          {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+          {errorMessage && <Alert className='lh-1' variant="danger">{errorMessage}</Alert>}
           <Form.Group className='mb-3'>
             <Form.Label htmlFor='inputEmail'>E-mail</Form.Label>
             <Form.Control
@@ -83,6 +83,7 @@ const SignIn: React.FC = () => {
               required
             />
           </Form.Group>
+          <br />
           <Form.Group className="mb-3">
             <Form.Label htmlFor='inputPassword'>Senha</Form.Label>
             <Form.Control
@@ -94,10 +95,11 @@ const SignIn: React.FC = () => {
               required
             />
           </Form.Group>
-          <Button type='submit' className='w-100' disabled={isLoading}>
+          <br />
+          <Button type='submit' className='mt-1 w-100' disabled={isLoading}>
             {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
-          <p className='mt-3 text-center'>Não tem uma conta? <a href='/signup'>Registre-se</a></p>
+          <p className='mt-3 text-start'>Não tem uma conta? <a href='/signup'>Registre-se</a></p>
         </Form>
       </Row>
     </Container>
