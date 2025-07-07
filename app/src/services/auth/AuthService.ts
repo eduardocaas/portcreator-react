@@ -22,7 +22,7 @@ const httpOptions = {
 const login = async (credentials: Credentials): Promise<boolean> => {
   try {
     const response = await axios.post<{ token: string }>(
-      `${API_URL}/auth/signin`,
+      `${API_URL}/api/auth/signin`,
       credentials,
       httpOptions
     );
@@ -40,7 +40,7 @@ const login = async (credentials: Credentials): Promise<boolean> => {
 };
 
 const signup = async (signupModel: SignupModel) => {
-  return axios.post(`${API_URL}/auth/signup`, signupModel, httpOptions);
+  return axios.post(`${API_URL}/api/auth/signup`, signupModel, httpOptions);
 };
 
 
