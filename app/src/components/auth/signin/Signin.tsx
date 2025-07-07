@@ -5,6 +5,7 @@ import { authService } from '../../../services/auth/AuthService';
 import type { Credentials } from '../../../models/auth/Credentials';
 import { Button, Container, Row, Form, Alert } from 'react-bootstrap';
 import { AuthMessage } from '../../../models/messages/AuthMessage';
+import './Signin.css'
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();

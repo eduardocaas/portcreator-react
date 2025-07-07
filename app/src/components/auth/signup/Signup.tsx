@@ -1,29 +1,106 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios, { AxiosError } from 'axios';
+import { authService } from '../../../services/auth/AuthService';
+import type { Credentials } from '../../../models/auth/Credentials';
+import { Button, Container, Row, Form, Alert } from 'react-bootstrap';
+import { AuthMessage } from '../../../models/messages/AuthMessage';
 import './Signup.css'
-import { Button, Container, FormControl, FormLabel, Row } from "react-bootstrap";
+import type { SignupModel } from '../../../models/auth/SignupModel';
 
-export default function SignUp() {
-  return(
-      <Container>
+const SignUp: React.FC = () => {
+  const navigate = useNavigate();
+  const [model, setModel] = useState<SignupModel>({ name: '', email: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setModel(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(null);
+
+    if (!model.name || !model.email || !model.password) {
+      setErrorMessage("Campos inválidos");
+      return;
+    }
+
+    try {
+      await authService.signup(model);
+      setTimeout(() => {
+        navigate('/signin');
+      }, 500);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          const status = axiosError.response.status;
+          if (status === 409) {
+            setErrorMessage(AuthMessage.SIGNUP_ERROR_409);
+          } else if (status === 400) {
+
+            setErrorMessage(AuthMessage.SIGNUP_ERROR_400);
+          } else {
+            setErrorMessage(AuthMessage.ERROR_500);
+          }
+        } else if (axiosError.request) {
+          setErrorMessage("Falha ao realização requisição");
+        } else {
+          setErrorMessage("Falha ao processar solicitação");
+        }
+      } else {
+        setErrorMessage("Erro desconhecido");
+      }
+    }
+  };
+
+  return (
+    <Container>
       <Row className='min-vh-100 d-flex justify-content-center align-items-center'>
-        <form className='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
+        <Form onSubmit={handleSubmit} className='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
           <h3>Cadastro</h3>
           <hr />
-          <div className='mb-1'>
-            <FormLabel htmlFor='inputName'>Nome</FormLabel>
-            <FormControl type='text' id='inputName' required></FormControl>
-          </div>
-          <div className='mb-1'>
-            <FormLabel htmlFor='inputEmail'>E-mail</FormLabel>
-            <FormControl type='email' id='inputEmail' required></FormControl>
-          </div>
-          <div className="mb-3">
-            <FormLabel htmlFor='inputPassword'>Senha</FormLabel>
-            <FormControl type='password' id='inputPassword' required></FormControl>
-          </div>
+          <Form.Group className='mb-1'>
+            <Form.Label htmlFor='inputName'>Nome</Form.Label>
+            <Form.Control
+              type='text'
+              id='inputName'
+              name='name'
+              value={model.name}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group className='mb-1'>
+            <Form.Label htmlFor='inputEmail'>E-mail</Form.Label>
+            <Form.Control
+              type='email'
+              id='inputEmail'
+              name='email'
+              value={model.email}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor='inputPassword'>Senha</Form.Label>
+            <Form.Control
+              type='password'
+              id='inputPassword'
+              name='password'
+              value={model.password}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
           <Button type='submit' className='col-12 col-md-3 mb-2'>Cadastrar</Button>
           <p>Já possui uma conta? <a href='/signin'>Login</a></p>
-        </form>
+        </Form>
       </Row>
     </Container>
   )
-}
+};
+
+export default SignUp;
