@@ -19,9 +19,24 @@ const httpOptions = {
   }
 };
 
-const login = async (credentials: Credentials) => {
-  const response = await axios.post<{ token: string }>(`${API_URL}/auth/signin`, credentials, httpOptions);
-  return response.data;
+const login = async (credentials: Credentials): Promise<boolean> => {
+  try {
+    const response = await axios.post<{ token: string }>(
+      `${API_URL}/auth/signin`,
+      credentials,
+      httpOptions
+    );
+    if (response.data && response.data.token) {
+      saveToken(response.data.token);
+      return true;
+    } else {
+      console.error('Falha ao armazenar token')
+      return false;
+    }
+  } catch (error) {
+    console.error("Falha no login:", error);
+    throw error;
+  }
 };
 
 const signup = async (signupModel: SignupModel) => {
@@ -31,9 +46,9 @@ const signup = async (signupModel: SignupModel) => {
 
 const saveToken = (token: string) => {
   if (!token) return;
-  
+
   localStorage.setItem('token', token);
-  
+
   const decoded = decodeToken(token);
   if (decoded) {
     localStorage.setItem('userId', decoded.userId);
