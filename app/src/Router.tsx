@@ -4,6 +4,7 @@ import { Home } from './components/public/home/Home'
 import SignIn from "./components/auth/signin/Signin";
 import SignUp from "./components/auth/signup/Signup";
 import ProtectedRoute from "./services/auth/ProtectedRoute";
+import { NotFound } from "./components/public/not-found/NotFound";
 
 export default function Router() {
   return (
@@ -23,7 +24,7 @@ export default function Router() {
           <Route path="portfolio" element={<Portfolio />} />
         </Route> */}
       </Route>
-{/*       <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

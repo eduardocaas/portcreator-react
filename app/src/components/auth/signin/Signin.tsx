@@ -54,7 +54,7 @@ const SignIn: React.FC = () => {
             setErrorMessage(AuthMessage.ERROR_500);
           }
         } else if (axiosError.request) {
-          setErrorMessage("Falha ao realização requisição");
+          setErrorMessage("Falha ao realizar requisição");
         } else {
           setErrorMessage("Falha ao processar solicitação");
         }
