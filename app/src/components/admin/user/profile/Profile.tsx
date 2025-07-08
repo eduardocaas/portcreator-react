@@ -8,7 +8,8 @@ import { userService } from "../../../../services/admin/UserService";
 
 const Profile: React.FC = () => {
 
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     userService.getById().then(
@@ -17,10 +18,11 @@ const Profile: React.FC = () => {
   }, [])
 
   return (
-    <Container className="container mt-5">
-      <Button className="btn-outline-dark"> <i
-        className="me-2"></i>Editar perfil</Button >
-      <FormProfile />
+    <Container className="mt-5">
+      <Button onClick={() => setIsEditing(!isEditing)} className="btn-outline-dark"> <i
+        className="bi bi-chevron-up me-2"></i>Editar perfil
+      </Button >
+      {isEditing && <FormProfile />}
       <hr />
       <DetailsProfile user={user} />
     </Container >
