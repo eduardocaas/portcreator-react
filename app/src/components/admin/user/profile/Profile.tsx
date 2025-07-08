@@ -19,7 +19,7 @@ const Profile: React.FC = () => {
 
   return (
     <Container className="container mt-5">
-      <Button className="btn btn-outline-dark"> <i
+      <Button className="btn-outline-dark"> <i
         className="me-2"></i>Editar perfil</Button >
       <FormProfile />
       <hr />

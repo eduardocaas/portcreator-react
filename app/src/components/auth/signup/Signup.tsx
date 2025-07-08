@@ -12,6 +12,8 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const [model, setModel] = useState<SignupModel>({ name: '', email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,16 +25,21 @@ const SignUp: React.FC = () => {
     setErrorMessage(null);
 
     if (!model.name || !model.email || !model.password) {
+      setIsLoading(false);
       setErrorMessage("Campos inválidos");
       return;
     }
 
     try {
       await authService.signup(model);
+      setIsLoading(true);
+      setErrorMessage(null);
+      setSuccessMessage("Cadastro realizado com sucesso!")
       setTimeout(() => {
         navigate('/signin');
-      }, 500);
+      }, 2000);
     } catch (error) {
+      setIsLoading(false);
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
@@ -63,6 +70,7 @@ const SignUp: React.FC = () => {
           <h3>Cadastro</h3>
           <hr />
           {errorMessage && <Alert className='lh-1' variant="danger">{errorMessage}</Alert>}
+          {successMessage && <Alert className='lh-1' variant="success">{successMessage}</Alert>}
           <Form.Group className='mb-2'>
             <Form.Label htmlFor='inputName'>Nome</Form.Label>
             <Form.Control
@@ -99,7 +107,8 @@ const SignUp: React.FC = () => {
             />
           </Form.Group>
           <br />
-          <Button type='submit' className='col-12 col-md-3 mb-2'>Cadastrar</Button>
+          <Button type='submit' className='col-12 mb-2 mt-1' disabled={isLoading}>
+            {isLoading ? 'Redirecionando...' : 'Cadastrar'}</Button>
           <p>Já possui uma conta? <a href='/signin'>Login</a></p>
         </Form>
       </Row>
