@@ -15,9 +15,15 @@ const Profile: React.FC = () => {
   useEffect(() => {
     userService.getById().then(
       u => setUser(u)
-    );
+    )
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      loadViewUser()
+    }
+  }, [user])
+  
   function loadViewUser() {
     setViewUser({...user!})
   }
@@ -27,9 +33,9 @@ const Profile: React.FC = () => {
       <Button onClick={() => setIsEditing(!isEditing)} className="btn-outline-dark"> <i
         className="bi bi-chevron-up me-2"></i>Editar perfil
       </Button >
-      {isEditing && <FormProfile />}
+      {(isEditing && user) && <FormProfile user={user}/>}
       <hr />
-      <DetailsProfile user={user} />
+      <DetailsProfile user={viewUser} />
     </Container >
   );
 }
