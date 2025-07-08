@@ -13,8 +13,8 @@ const Profile: React.FC = () => {
   useEffect(() => {
     userService.getById().then(
       u => setUser(u)
-    )
-  })
+    );
+  }, [])
 
   return (
     <Container className="container mt-5">

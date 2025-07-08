@@ -6,7 +6,7 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token: string | null = sessionStorage.getItem('token');
+    const token: string | null = localStorage.getItem('token');
 
     if (token) {
       config.headers['Token'] = token;
