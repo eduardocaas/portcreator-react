@@ -9,6 +9,7 @@ import { userService } from "../../../../services/admin/UserService";
 const Profile: React.FC = () => {
 
   const [user, setUser] = useState<User | null>(null);
+  const [viewUser, setViewUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -16,6 +17,10 @@ const Profile: React.FC = () => {
       u => setUser(u)
     );
   }, [])
+
+  function loadViewUser() {
+    setViewUser({...user!})
+  }
 
   return (
     <Container className="mt-5">
