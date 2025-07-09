@@ -11,8 +11,10 @@ interface CardCertificationProps {
 
 const CardCertification: React.FC<CardCertificationProps> = ({ certification, onDelete }) => {
   let detailsUrl = '#'
+  let updateUrl = '#'
   if (certification) {
     detailsUrl = `/app/certifications/${certification.id}`;
+    updateUrl = `/app/certifications/create/${certification.id}`;
   }
 
   const handleDelete = async () => {
@@ -37,10 +39,10 @@ const CardCertification: React.FC<CardCertificationProps> = ({ certification, on
               <h5 className="card-title">{certification.title}</h5>
               <p className="card-text">{certification.hours} horas</p>
               <Link to={detailsUrl} className="btn btn-secondary">Detalhes</Link>
-              <button
+              <Link to={updateUrl}
                 className="btn btn-outline-primary ms-1">
                 <i className="bi bi-pencil"></i>
-              </button>
+              </Link>
               <button className="btn btn-outline-danger ms-1" onClick={handleDelete} data-bs-toggle="modal">
                 <i className="bi bi-trash"></i>
               </button>
