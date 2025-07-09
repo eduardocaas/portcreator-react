@@ -1,5 +1,5 @@
 import type React from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import { Alert, Button, Form, Row } from "react-bootstrap";
 import './FormProfile.css'
 import type { User } from "../../../../models/admin/User";
 import { useState } from "react";
@@ -17,6 +17,7 @@ const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
   const [formUser, setFormUser] = useState<User>(user!);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>("Preencha os campos acima!");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,7 +26,9 @@ const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMessage(null)
+    setInfoMessage(null);
+    setErrorMessage(null);
+    setSuccessMessage(null);
 
     if (!formUser?.name || !formUser?.email) {
       setErrorMessage("Campos obrigatórios: nome, email");
@@ -35,7 +38,7 @@ const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
     try {
       const response = await userService.update(formUser);
       if (response) {
-        setSuccessMessage("Dados atualizados com sucesso")
+        setSuccessMessage("Dados atualizados com sucesso!")
         onUpdate();
         return;
       }
@@ -53,12 +56,12 @@ const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
             setErrorMessage(UserMessage.ERROR_500);
           }
         } else if (axiosError.request) {
-          setErrorMessage("Falha ao realizar requisição");
+          setErrorMessage("Falha ao realizar requisição!");
         } else {
-          setErrorMessage("Falha ao processar solicitação");
+          setErrorMessage("Falha ao processar solicitação!");
         }
       } else {
-        setErrorMessage("Erro desconhecido");
+        setErrorMessage("Erro desconhecido!");
       }
     }
   }
@@ -148,6 +151,11 @@ const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
         <div className="mt-4 mt-lg-5 col-12 col-md-4 col-lg-2">
           <Button type="submit" className="btn-primary w-100 w-md-auto px-md-4 py-md-2">Atualizar</Button>
         </div >
+        <div className="mt-3 mb-2 col-12">
+          {infoMessage && <Alert className='lh-1' variant="primary">{infoMessage}</Alert>}
+          {errorMessage && <Alert className='lh-1' variant="danger">{errorMessage}</Alert>}
+          {successMessage && <Alert className='lh-1' variant="success">{successMessage}</Alert>}
+        </div>
       </Row >
     </Form >
   )

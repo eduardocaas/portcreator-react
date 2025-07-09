@@ -3,7 +3,19 @@
   border-radius: 6px;
   padding: 2rem;
   overflow-x: auto;
-  min-height: 600px;
+  min-height: 645px;
+}
+
+@media only screen and (max-width: 991px) {
+  .form {
+    min-height: 750px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .form {
+    min-height: 890px;
+  }
 }
 
 @media only screen and (max-width: 520px) {
