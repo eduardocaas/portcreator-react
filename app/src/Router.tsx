@@ -8,6 +8,8 @@ import { NotFound } from "./components/public/not-found/NotFound";
 import Nav from "./components/admin/nav/Nav";
 import Dashboard from "./components/admin/dashboard/Dashboard";
 import Profile from "./components/admin/user/profile/Profile";
+import Certification from "./components/admin/certification/certification/Certification";
+import FormCertification from "./components/admin/certification/form-certification/FormCertification";
 
 export default function Router() {
   return (
@@ -19,9 +21,9 @@ export default function Router() {
         <Route path="/app" element={<Nav />}>
           <Route index element={<Dashboard />} /> 
           <Route path="profile" element={<Profile />} />
- {/*          <Route path="certifications" element={<Certifications />} />
+          <Route path="certifications" element={<Certification />} />
           <Route path="certifications/create" element={<FormCertification />} />
-          <Route path="certifications/create/:id" element={<FormCertification />} />
+{/*           <Route path="certifications/create/:id" element={<FormCertification />} />
           <Route path="certifications/:id" element={<CertificationDetails />} />
           <Route path="portfolio" element={<Portfolio />} />  */}
           <Route path="*" element={<Navigate to="/app" replace />} />
