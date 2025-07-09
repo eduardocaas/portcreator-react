@@ -23,9 +23,9 @@ export default function Router() {
           <Route path="profile" element={<Profile />} />
           <Route path="certifications" element={<Certification />} />
           <Route path="certifications/create" element={<FormCertification />} />
-{/*           <Route path="certifications/create/:id" element={<FormCertification />} />
-          <Route path="certifications/:id" element={<CertificationDetails />} />
-          <Route path="portfolio" element={<Portfolio />} />  */}
+          <Route path="certifications/create/:id" element={<FormCertification />} />
+{/*           <Route path="certifications/:id" element={<CertificationDetails />} /> */}
+          {/* <Route path="portfolio" element={<Portfolio />} />  */}
           <Route path="*" element={<Navigate to="/app" replace />} />
         </Route>
       </Route>
