@@ -66,7 +66,7 @@ const SignUp: React.FC = () => {
   return (
     <Container>
       <Row className='min-vh-100 d-flex justify-content-center align-items-center'>
-        <Form onSubmit={handleSubmit} className='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
+        <Form onSubmit={handleSubmit} className='formSignup col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 rounded pt-5 pb-5 p-4'>
           <h3>Cadastro</h3>
           <hr />
           {errorMessage && <Alert className='lh-1' variant="danger">{errorMessage}</Alert>}
@@ -95,7 +95,7 @@ const SignUp: React.FC = () => {
             />
           </Form.Group>
           <br />
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-2">
             <Form.Label htmlFor='inputPassword'>Senha</Form.Label>
             <Form.Control
               type='password'
