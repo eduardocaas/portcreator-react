@@ -10,6 +10,7 @@ import Dashboard from "./components/admin/dashboard/Dashboard";
 import Profile from "./components/admin/user/profile/Profile";
 import Certification from "./components/admin/certification/certification/Certification";
 import FormCertification from "./components/admin/certification/form-certification/FormCertification";
+import DetailsCertification from "./components/admin/certification/details-certification/DetailsCertification";
 
 export default function Router() {
   return (
@@ -24,7 +25,7 @@ export default function Router() {
           <Route path="certifications" element={<Certification />} />
           <Route path="certifications/create" element={<FormCertification />} />
           <Route path="certifications/create/:id" element={<FormCertification />} />
-{/*           <Route path="certifications/:id" element={<CertificationDetails />} /> */}
+          <Route path="certifications/:id" element={<DetailsCertification />} />
           {/* <Route path="portfolio" element={<Portfolio />} />  */}
           <Route path="*" element={<Navigate to="/app" replace />} />
         </Route>

@@ -30,7 +30,7 @@ const getById = async (id: string): Promise<Certification> => {
     if (!id) {
       return Promise.reject(new Error("Id inválido"));
     }
-    const response = await api.get<Certification>(`${API_URL}/api/users/${id}`);
+    const response = await api.get<Certification>(`${API_URL}/api/certifications/${id}`);
     return response.data;
   }
   catch (error) {
