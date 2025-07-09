@@ -38,9 +38,9 @@ const Profile: React.FC = () => {
 
   return (
     <Container className="mt-5">
-      <Button onClick={() => setIsEditing(!isEditing)} className="btn-outline-dark"> <i
+      <button onClick={() => setIsEditing(!isEditing)} className="btn btn-outline-dark"> <i
         className="bi bi-chevron-up me-2"></i>Editar perfil
-      </Button >
+      </button >
       {(isEditing && user) && <FormProfile user={user} onUpdate={loadUser} />}
       <hr />
       <DetailsProfile user={viewUser} />

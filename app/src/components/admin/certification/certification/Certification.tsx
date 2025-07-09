@@ -4,6 +4,7 @@ import CardCertification from "../card-certification/CardCertification";
 import { useEffect, useState } from "react";
 import type { CertificationPartial } from "../../../../models/admin/certification/CertificationPartial";
 import { certificationService } from "../../../../services/admin/CertificationService";
+import { Link } from "react-router";
 
 const Certification: React.FC = () => {
 
@@ -20,8 +21,8 @@ const Certification: React.FC = () => {
 
   return (
     <Container className="mt-5">
-      <Button className="btn-outline-dark" href="/app/certifications/create"> <i className="bi bi-save me-3"></i>Adicionar
-        certificação</Button>
+      <Link className="btn btn-outline-dark" to="/app/certifications/create"> <i className="bi bi-save me-3"></i>Adicionar
+        certificação</Link>
 
       <hr />
       <div className="d-flex">
