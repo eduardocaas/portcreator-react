@@ -54,10 +54,8 @@ const Certification: React.FC = () => {
           ))
         }
       </div >
-      <p className="text-secondary mt-1"> Você ainda não possui certificações registradas!</p >
-      <p className="text-secondary mt-1"
-      >
-        Nenhuma certificação encontrada!</p >
+      {certifications.length == 0 && (<p className="text-secondary mt-1"> Você ainda não possui certificações registradas!</p >)}
+      {/* <p className="text-secondary mt-1">Nenhuma certificação encontrada!</p > */}
     </Container >
   )
 }
