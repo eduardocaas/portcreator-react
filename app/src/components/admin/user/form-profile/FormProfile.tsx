@@ -3,22 +3,68 @@ import { Button, Form, Row } from "react-bootstrap";
 import './FormProfile.css'
 import type { User } from "../../../../models/admin/User";
 import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { UserMessage } from "../../../../models/messages/UserMessage";
+import { userService } from "../../../../services/admin/UserService";
 
 interface DetailsProfileProps {
   user: User | null;
+  onUpdate: () => void;
 }
 
-const FormProfile: React.FC<DetailsProfileProps> = ({ user }) => {
+const FormProfile: React.FC<DetailsProfileProps> = ({ user, onUpdate }) => {
 
   const [formUser, setFormUser] = useState<User>(user!);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormUser(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(null)
+
+    if (!formUser?.name || !formUser?.email) {
+      setErrorMessage("Campos obrigatórios: nome, email");
+      return;
+    }
+
+    try {
+      const response = await userService.update(formUser);
+      if (response) {
+        setSuccessMessage("Dados atualizados com sucesso")
+        onUpdate();
+        return;
+      }
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          const status = axiosError.response.status;
+          if (status == 400) {
+            setErrorMessage(axiosError.message);
+          } else if (status == 404) {
+            setErrorMessage(UserMessage.ERROR_404);
+          } else {
+            setErrorMessage(UserMessage.ERROR_500);
+          }
+        } else if (axiosError.request) {
+          setErrorMessage("Falha ao realizar requisição");
+        } else {
+          setErrorMessage("Falha ao processar solicitação");
+        }
+      } else {
+        setErrorMessage("Erro desconhecido");
+      }
+    }
+  }
+
   return (
-    <Form className="form mt-4">
+    <Form onSubmit={handleSubmit} className="form mt-4">
       <h2>Atualize seus dados</h2>
       <Row>
         <Form.Group className="mb-3 mt-3 col-12 col-md-6">
