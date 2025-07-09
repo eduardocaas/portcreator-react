@@ -14,7 +14,7 @@ const FormCertification: React.FC = () => {
     description: '',
     issueDate: new Date(),
     hours: 0,
-    type: "CERTIFICATION",
+    type: 0,
     imagePath: ''
   });
 
@@ -42,13 +42,13 @@ const FormCertification: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (id) {
       try {
         await certificationService.update(
           id,
           certification
-        ); 
+        );
+        alert("Certificação atualizada com sucesso!")
       } catch (error) { // TODO: Adicionar tratamento por código de erro
         console.error("Erro ao atualizar certificação:", error);
         alert("Falha ao atualizar certificação!");
@@ -67,6 +67,7 @@ const FormCertification: React.FC = () => {
             imagePath: certification.imagePath
           }
         );
+        alert("Certificação salva com sucesso!")
       } catch (error) { // TODO: Adicionar tratamento por código de erro
         console.error("Erro ao registrar certificação:", error);
         alert("Falha ao registrar certificação!");
@@ -106,7 +107,7 @@ const FormCertification: React.FC = () => {
 
         <Form.Group className="mb-3 col-12 col-md-6">
           <Form.Label htmlFor="issueDate">Data de emissão</Form.Label>
-          <Form.Control type="date" id="issueDate"
+          <Form.Control type="date" id="issueDate" name="issueDate"
             value={certification.issueDate instanceof Date ? certification.issueDate.toISOString().split('T')[0] : certification.issueDate}
             onChange={handleChange}
             required />
@@ -127,18 +128,18 @@ const FormCertification: React.FC = () => {
             type="radio"
             label="Certificação"
             name="type"
-            value="CERTIFICATION"
+            value="0"
             id="radioCertification"
-            checked={certification.type === 'CERTIFICATION'}
+            checked={certification.type == 0}
             onChange={handleChange}
           />
           <Form.Check
             type="radio"
             label="Curso"
             name="type"
-            value="COURSE"
+            value="1"
             id="radioCourse"
-            checked={certification.type === 'COURSE'}
+            checked={certification.type == 1}
             onChange={handleChange}
           />
         </Form.Group>

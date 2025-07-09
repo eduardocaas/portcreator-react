@@ -4,7 +4,7 @@ export interface Certification {
   id: string,
   title: string,
   description: string,
-  type: CertificationType,
+  type: number,
   issueDate: Date,
   hours: number,
   institutionName: string;
