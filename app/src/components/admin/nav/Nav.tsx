@@ -45,7 +45,7 @@ const Nav: React.FC = () => {
         </div >
       </nav >
 
-      <div className="flex-fill">
+      <div className="flex-grow-1">
         <Outlet></Outlet>
       </div>
 
