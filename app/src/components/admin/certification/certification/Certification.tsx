@@ -1,8 +1,23 @@
 import type React from "react";
 import { Button, Container } from "react-bootstrap";
 import CardCertification from "../card-certification/CardCertification";
+import { useEffect, useState } from "react";
+import type { CertificationPartial } from "../../../../models/admin/certification/CertificationPartial";
+import { certificationService } from "../../../../services/admin/CertificationService";
 
 const Certification: React.FC = () => {
+
+  const [certifications, setCertifications] = useState<CertificationPartial[]>([]);
+
+  const loadCertifications = () => {
+    certificationService.getAll(false).then(
+      certs => setCertifications(certs)
+    )
+  }
+  useEffect(() => {
+    loadCertifications();
+  }, [])
+
   return (
     <Container className="mt-5">
       <Button className="btn-outline-dark" href="/app/certifications/create"> <i className="bi bi-save me-3"></i>Adicionar
@@ -30,11 +45,13 @@ const Certification: React.FC = () => {
         </div>
       </div >
       <div className="row">
-        <div
-          className="col-12 col-md-6 col-xl-4 mb-3">
-          <CardCertification />
-          <Button className="btn-secondary">Detalhes</Button> {/* Esse fica dentro do CardCertification */}
-        </div >
+        {
+          certifications.map(cert => (
+            <div key={cert.id} className="col-12 col-md-6 col-xl-4 mb-3">
+              <CardCertification onDelete={loadCertifications} certification={cert} />
+            </div>
+          ))
+        }
       </div >
       <p className="text-secondary mt-1"> Você ainda não possui certificações registradas!</p >
       <p className="text-secondary mt-1"
